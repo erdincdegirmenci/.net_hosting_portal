@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Newdomain";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container"><br />
+        <div class="col-sm-5"><h3>Hosting Tanımlama</h3></div>
+        <form method="post" class="form-group">
+                <div class="col-sm-3">
+                    <label>Domain Adı:</label>
+                    <input type="text" class="form-control input-sm" id="inputsm" placeholder="" name="domainNAME" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Lütfen bu alanı doldurun.</div>
+                </div>
+                <div class="col-sm-3">
+                    <label for="inputsm">Domain Başlangıç Tarihi:</label>
+                    <input type="date" class="form-control" id="inputsm" placeholder="Enter Date" name="domainDBS">
+                </div>
+                <div class="col-sm-3">
+                    <label>Domain Bitiş Tarihi:</label>
+                    <input type="date" class="form-control input-sm-" id="date" placeholder="Enter Date" name="domainDBT" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Lütfen bu alanı doldurun.</div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Müşteri Adı:</label>
+                    <input type="text" class="form-control input-sm" id="inputsm" placeholder="" name="domainCUSTOMER" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Lütfen bu alanı doldurun.</div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Panel ve FTP Bilgileri:</label>
+                    <input type="text" class="form-control" id="inputsm" placeholder="" name="domainDETAIL">
+                </div>
+                <div class="col-sm-3">
+                    <label>Hosting Başlangıç Tarihi:</label>
+                    <input type="date" class="form-control" id="inputsm" placeholder="Enter Date" name="domainHBS">
+                </div>
+                <div class="col-sm-3">
+                    <label>Hosting Bitiş Tarihi:</label>
+                    <input type="date" class="form-control input-sm-" id="date" placeholder="Enter Date" name="domainHBT" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Lütfen bu alanı doldurun.</div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Bayi:</label>
+                    <input type="text" class="form-control input-sm" id="inputsm" placeholder="" name="domainSELLER" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Lütfen bu alanı doldurun.</div>
+                </div>
+                <div class="col-sm-3">
+                    <label>Personal Adı</label>
+                    <input type="text" class="form-control input-sm" id="inputsm" placeholder="" name="userID" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Lütfen bu alanı doldurun.</div>
+                </div>
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-primary" style="width:235px">DOMAIN KAYIT ET</button>
+                </div>
+        </form>
+     </div>
+    
+
+</body>
+</html>
+
+

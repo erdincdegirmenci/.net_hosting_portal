@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ORIONDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TBLDOMAIN">
+          <Key>
+            <PropertyRef Name="domainID" />
+          </Key>
+          <Property Name="domainID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="domainNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="domainDBS" Type="datetime" />
+          <Property Name="domainDBT" Type="datetime" Nullable="false" />
+          <Property Name="domainCUSTOMER" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="domainDETAIL" Type="nvarchar" MaxLength="100" />
+          <Property Name="domainHBS" Type="datetime" />
+          <Property Name="domainHBT" Type="datetime" Nullable="false" />
+          <Property Name="domainSELLER" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="hostDAY" Type="int" />
+          <Property Name="userID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TBLLOG">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="userPASS" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="rolID" Type="int" />
+        </EntityType>
+        <EntityType Name="TBLROLS">
+          <Key>
+            <PropertyRef Name="rolID" />
+          </Key>
+          <Property Name="rolID" Type="int" Nullable="false" />
+          <Property Name="rolNAME" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_TBLDOMAIN_TBLLOG">
+          <End Role="TBLLOG" Type="Self.TBLLOG" Multiplicity="1" />
+          <End Role="TBLDOMAIN" Type="Self.TBLDOMAIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLLOG">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="TBLDOMAIN">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLLOG_TBLROLS">
+          <End Role="TBLROLS" Type="Self.TBLROLS" Multiplicity="0..1" />
+          <End Role="TBLLOG" Type="Self.TBLLOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLROLS">
+              <PropertyRef Name="rolID" />
+            </Principal>
+            <Dependent Role="TBLLOG">
+              <PropertyRef Name="rolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ORIONDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLDOMAIN" EntityType="Self.TBLDOMAIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLLOG" EntityType="Self.TBLLOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLROLS" EntityType="Self.TBLROLS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLDOMAIN_TBLLOG" Association="Self.FK_TBLDOMAIN_TBLLOG">
+            <End Role="TBLLOG" EntitySet="TBLLOG" />
+            <End Role="TBLDOMAIN" EntitySet="TBLDOMAIN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLLOG_TBLROLS" Association="Self.FK_TBLLOG_TBLROLS">
+            <End Role="TBLROLS" EntitySet="TBLROLS" />
+            <End Role="TBLLOG" EntitySet="TBLLOG" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ORIONDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TBLDOMAIN">
+          <Key>
+            <PropertyRef Name="domainID" />
+          </Key>
+          <Property Name="domainID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="domainNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="domainDBS" Type="DateTime" Precision="3" />
+          <Property Name="domainDBT" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="domainCUSTOMER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="domainDETAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="domainHBS" Type="DateTime" Precision="3" />
+          <Property Name="domainHBT" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="domainSELLER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TBLLOG" Relationship="Self.FK_TBLDOMAIN_TBLLOG" FromRole="TBLDOMAIN" ToRole="TBLLOG" />
+          <Property Name="hostDAY" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TBLLOG">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="userPASS" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TBLDOMAIN" Relationship="Self.FK_TBLDOMAIN_TBLLOG" FromRole="TBLLOG" ToRole="TBLDOMAIN" />
+          <Property Name="rolID" Type="Int32" />
+          <NavigationProperty Name="TBLROLS" Relationship="ORIONDBModel.FK_TBLLOG_TBLROLS" FromRole="TBLLOG" ToRole="TBLROLS" />
+        </EntityType>
+        <Association Name="FK_TBLDOMAIN_TBLLOG">
+          <End Role="TBLLOG" Type="Self.TBLLOG" Multiplicity="1" />
+          <End Role="TBLDOMAIN" Type="Self.TBLDOMAIN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLLOG">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="TBLDOMAIN">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ORIONDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TBLDOMAIN" EntityType="Self.TBLDOMAIN" />
+          <EntitySet Name="TBLLOG" EntityType="Self.TBLLOG" />
+          <AssociationSet Name="FK_TBLDOMAIN_TBLLOG" Association="Self.FK_TBLDOMAIN_TBLLOG">
+            <End Role="TBLLOG" EntitySet="TBLLOG" />
+            <End Role="TBLDOMAIN" EntitySet="TBLDOMAIN" />
+          </AssociationSet>
+          <EntitySet Name="TBLROLS" EntityType="ORIONDBModel.TBLROLS" />
+          <AssociationSet Name="FK_TBLLOG_TBLROLS" Association="ORIONDBModel.FK_TBLLOG_TBLROLS">
+            <End Role="TBLROLS" EntitySet="TBLROLS" />
+            <End Role="TBLLOG" EntitySet="TBLLOG" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="TBLROLS">
+          <Key>
+            <PropertyRef Name="rolID" />
+          </Key>
+          <Property Name="rolID" Type="Int32" Nullable="false" />
+          <Property Name="rolNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TBLLOG" Relationship="ORIONDBModel.FK_TBLLOG_TBLROLS" FromRole="TBLROLS" ToRole="TBLLOG" />
+        </EntityType>
+        <Association Name="FK_TBLLOG_TBLROLS">
+          <End Type="ORIONDBModel.TBLROLS" Role="TBLROLS" Multiplicity="0..1" />
+          <End Type="ORIONDBModel.TBLLOG" Role="TBLLOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLROLS">
+              <PropertyRef Name="rolID" />
+            </Principal>
+            <Dependent Role="TBLLOG">
+              <PropertyRef Name="rolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ORIONDBModelStoreContainer" CdmEntityContainer="ORIONDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ORIONDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLDOMAIN">
+            <EntityTypeMapping TypeName="ORIONDBModel.TBLDOMAIN">
+              <MappingFragment StoreEntitySet="TBLDOMAIN">
+                <ScalarProperty Name="hostDAY" ColumnName="hostDAY" />
+                <ScalarProperty Name="domainID" ColumnName="domainID" />
+                <ScalarProperty Name="domainNAME" ColumnName="domainNAME" />
+                <ScalarProperty Name="domainDBS" ColumnName="domainDBS" />
+                <ScalarProperty Name="domainDBT" ColumnName="domainDBT" />
+                <ScalarProperty Name="domainCUSTOMER" ColumnName="domainCUSTOMER" />
+                <ScalarProperty Name="domainDETAIL" ColumnName="domainDETAIL" />
+                <ScalarProperty Name="domainHBS" ColumnName="domainHBS" />
+                <ScalarProperty Name="domainHBT" ColumnName="domainHBT" />
+                <ScalarProperty Name="domainSELLER" ColumnName="domainSELLER" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLLOG">
+            <EntityTypeMapping TypeName="ORIONDBModel.TBLLOG">
+              <MappingFragment StoreEntitySet="TBLLOG">
+                <ScalarProperty Name="rolID" ColumnName="rolID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="userNAME" ColumnName="userNAME" />
+                <ScalarProperty Name="userPASS" ColumnName="userPASS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLROLS">
+            <EntityTypeMapping TypeName="ORIONDBModel.TBLROLS">
+              <MappingFragment StoreEntitySet="TBLROLS">
+                <ScalarProperty Name="rolNAME" ColumnName="rolNAME" />
+                <ScalarProperty Name="rolID" ColumnName="rolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

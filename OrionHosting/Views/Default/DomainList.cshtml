@@ -1,0 +1,91 @@
+﻿@using OrionHosting.Models.Entity
+@model List<TBLDOMAIN>
+
+@{
+    /**/
+
+    ViewBag.Title = "DomainList";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<div class="text-md-right" style="margin-right:20px">
+    @using (Html.BeginForm("DomainList", "Default", FormMethod.Get))
+    {
+     //   <label>
+       //     <p class="font-weight-normal">
+         //       Domain Adı ya da Bayi Adı: @Html.TextBox("p")
+         //       <button type="submit" class="btn btn-secondary btn-sm">ARA</button>
+         //   </p>
+     //   </label>
+        <label>
+            <button type="submit" class="btn btn-secondary btn-sm">FİLTRELE</button>
+            <i class="fa fa-calendar" style="font-size:20px"></i>
+            @Html.TextBox(" ", "p", new { @class = "date", @type = "date" })
+            
+        </label>
+    }
+</div>
+
+<table id="myTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Domain Adı</th>
+            <th>Bayi</th>
+            <th>Domain Başlangıç Tarihi</th>
+            <th>Domain Bitiş Tarihi</th>
+            <th>Hosting Başlangıç Tarihi</th>
+            <th>Hosting Bitiş Tarihi</th>
+            <th>Güncelle</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var variable in Model)
+        {
+            <tr>
+                <td>@variable.domainNAME</td>
+                <td>@variable.domainSELLER</td>
+                <td>@variable.domainDBS.Value.ToString("dd-MM-yyyy")</td>
+                <td>@variable.domainDBT.ToString("dd-MM-yyyy")</td>
+                <td>@variable.domainHBS.Value.ToString("dd-MM-yyyy")</td>
+                <td>@variable.domainHBT.ToString("dd-MM-yyyy")</td>
+                <td><a href="/Default/domainUptade/@variable.domainID" class="btn btn-success">Güncelle</a></td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/DataTables/datatables.min.js"></script>
+<script src="~/DataTables/datatables.js"></script>
+<link href="~/DataTables/datatables.min.css" rel="stylesheet" />
+
+    <script>
+        $('#myTable').DataTable({
+            language: {
+                info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+                infoEmpty: "Gösterilecek hiç kayıt yok.",
+                loadingRecords: "Kayıtlar yükleniyor.",
+                zeroRecords: "Tablo boş",
+                search: "Domain Adı ya da Bayi Adı:",
+                infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+                buttons: {
+                    copyTitle: "Panoya kopyalandı.",
+                    copySuccess: "Panoya %d satır kopyalandı",
+                    copy: "Kopyala",
+                    print: "Yazdır",
+                },
+
+                paginate: {
+                    first: "İlk",
+                    previous: "Önceki",
+                    next: "Sonraki",
+                    last: "Son"
+                },
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'excel', 'pdf', 'print'
+            ],
+            responsive: true
+        });
+    </script>

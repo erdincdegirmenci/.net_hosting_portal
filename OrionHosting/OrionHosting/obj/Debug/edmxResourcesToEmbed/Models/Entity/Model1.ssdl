@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ORIONDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TBLDOMAIN">
+    <Key>
+      <PropertyRef Name="domainID" />
+    </Key>
+    <Property Name="domainID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="domainNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="domainDBS" Type="datetime" />
+    <Property Name="domainDBT" Type="datetime" Nullable="false" />
+    <Property Name="domainCUSTOMER" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="domainDETAIL" Type="nvarchar" MaxLength="100" />
+    <Property Name="domainHBS" Type="datetime" />
+    <Property Name="domainHBT" Type="datetime" Nullable="false" />
+    <Property Name="domainSELLER" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="hostDAY" Type="int" />
+    <Property Name="userID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBLLOG">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="userPASS" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="rolID" Type="int" />
+  </EntityType>
+  <EntityType Name="TBLROLS">
+    <Key>
+      <PropertyRef Name="rolID" />
+    </Key>
+    <Property Name="rolID" Type="int" Nullable="false" />
+    <Property Name="rolNAME" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_TBLDOMAIN_TBLLOG">
+    <End Role="TBLLOG" Type="Self.TBLLOG" Multiplicity="1" />
+    <End Role="TBLDOMAIN" Type="Self.TBLDOMAIN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLLOG">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="TBLDOMAIN">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLLOG_TBLROLS">
+    <End Role="TBLROLS" Type="Self.TBLROLS" Multiplicity="0..1" />
+    <End Role="TBLLOG" Type="Self.TBLLOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLROLS">
+        <PropertyRef Name="rolID" />
+      </Principal>
+      <Dependent Role="TBLLOG">
+        <PropertyRef Name="rolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ORIONDBModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLDOMAIN" EntityType="Self.TBLDOMAIN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLLOG" EntityType="Self.TBLLOG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLROLS" EntityType="Self.TBLROLS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TBLDOMAIN_TBLLOG" Association="Self.FK_TBLDOMAIN_TBLLOG">
+      <End Role="TBLLOG" EntitySet="TBLLOG" />
+      <End Role="TBLDOMAIN" EntitySet="TBLDOMAIN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLLOG_TBLROLS" Association="Self.FK_TBLLOG_TBLROLS">
+      <End Role="TBLROLS" EntitySet="TBLROLS" />
+      <End Role="TBLLOG" EntitySet="TBLLOG" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

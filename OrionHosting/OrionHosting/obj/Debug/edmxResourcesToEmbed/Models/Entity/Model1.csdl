@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ORIONDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBLDOMAIN">
+    <Key>
+      <PropertyRef Name="domainID" />
+    </Key>
+    <Property Name="domainID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="domainNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="domainDBS" Type="DateTime" Precision="3" />
+    <Property Name="domainDBT" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="domainCUSTOMER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="domainDETAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="domainHBS" Type="DateTime" Precision="3" />
+    <Property Name="domainHBT" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="domainSELLER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TBLLOG" Relationship="Self.FK_TBLDOMAIN_TBLLOG" FromRole="TBLDOMAIN" ToRole="TBLLOG" />
+    <Property Name="hostDAY" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TBLLOG">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="userPASS" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="TBLDOMAIN" Relationship="Self.FK_TBLDOMAIN_TBLLOG" FromRole="TBLLOG" ToRole="TBLDOMAIN" />
+    <Property Name="rolID" Type="Int32" />
+    <NavigationProperty Name="TBLROLS" Relationship="ORIONDBModel.FK_TBLLOG_TBLROLS" FromRole="TBLLOG" ToRole="TBLROLS" />
+  </EntityType>
+  <Association Name="FK_TBLDOMAIN_TBLLOG">
+    <End Role="TBLLOG" Type="Self.TBLLOG" Multiplicity="1" />
+    <End Role="TBLDOMAIN" Type="Self.TBLDOMAIN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLLOG">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="TBLDOMAIN">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ORIONDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TBLDOMAIN" EntityType="Self.TBLDOMAIN" />
+    <EntitySet Name="TBLLOG" EntityType="Self.TBLLOG" />
+    <AssociationSet Name="FK_TBLDOMAIN_TBLLOG" Association="Self.FK_TBLDOMAIN_TBLLOG">
+      <End Role="TBLLOG" EntitySet="TBLLOG" />
+      <End Role="TBLDOMAIN" EntitySet="TBLDOMAIN" />
+    </AssociationSet>
+    <EntitySet Name="TBLROLS" EntityType="ORIONDBModel.TBLROLS" />
+    <AssociationSet Name="FK_TBLLOG_TBLROLS" Association="ORIONDBModel.FK_TBLLOG_TBLROLS">
+      <End Role="TBLROLS" EntitySet="TBLROLS" />
+      <End Role="TBLLOG" EntitySet="TBLLOG" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="TBLROLS">
+    <Key>
+      <PropertyRef Name="rolID" />
+    </Key>
+    <Property Name="rolID" Type="Int32" Nullable="false" />
+    <Property Name="rolNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TBLLOG" Relationship="ORIONDBModel.FK_TBLLOG_TBLROLS" FromRole="TBLROLS" ToRole="TBLLOG" />
+  </EntityType>
+  <Association Name="FK_TBLLOG_TBLROLS">
+    <End Type="ORIONDBModel.TBLROLS" Role="TBLROLS" Multiplicity="0..1" />
+    <End Type="ORIONDBModel.TBLLOG" Role="TBLLOG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLROLS">
+        <PropertyRef Name="rolID" />
+      </Principal>
+      <Dependent Role="TBLLOG">
+        <PropertyRef Name="rolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,71 @@
+﻿
+@using OrionHosting.Models.Entity
+@model List<TBLDOMAIN>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+          
+<table id="myTable" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Domain Adı</th>
+            <th>Bayi</th>
+            <th>Müşteri</th>
+            <th>Host Başlangıç Tarihi</th>
+            <th>Kalan Gün Sayısı</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var result in Model)
+        {
+            <tr>
+                <td>@result.domainNAME</td>
+                <td>@result.domainSELLER</td>
+                <td>@result.domainCUSTOMER</td>
+                <td>@result.domainHBS.Value.ToString("dd-MM-yyyy")</td>
+                <td>@result.hostDAY</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link href="~/DataTables/datatables.css" rel="stylesheet" />
+<link href="~/DataTables/datatables.min.css" rel="stylesheet" />
+<script src="~/DataTables/datatables.js"></script>
+<script src="~/DataTables/datatables.min.js"></script>
+
+<script>
+    $('#myTable').DataTable({
+        language: {
+            info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+            infoEmpty: "Gösterilecek hiç kayıt yok.",
+            loadingRecords: "Kayıtlar yükleniyor.",
+            zeroRecords: "Tablo boş",
+            search: "Bayi yada Domain Adı:",
+            infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+            buttons: {
+                copyTitle: "Panoya kopyalandı.",
+                copySuccess: "Panoya %d satır kopyalandı",
+                copy: "Kopyala",
+                print: "Yazdır",
+            },
+
+            paginate: {
+                first: "İlk",
+                previous: "Önceki",
+                next: "Sonraki",
+                last: "Son"
+            },
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ],
+        responsive: true
+    });
+</script>
